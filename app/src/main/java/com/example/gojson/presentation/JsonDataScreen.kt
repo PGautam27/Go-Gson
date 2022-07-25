@@ -10,10 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.gojson.presentation.screens.Screens
 
 @Composable
-fun Screens.JsonDataScreen(viewModel: ViewModel) {
+fun JsonDataScreen(viewModel: ViewModel) {
     val jsonData = viewModel.jsonData.observeAsState().value.toString()
     Column(
         modifier = Modifier

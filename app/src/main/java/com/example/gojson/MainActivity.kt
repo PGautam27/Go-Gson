@@ -17,10 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.gojson.presentation.HomeScreen
+import com.example.gojson.presentation.JsonDataScreen
 import com.example.gojson.presentation.ViewModel
+import com.example.gojson.presentation.screens.Screens
 import com.example.gojson.ui.theme.GoJsonTheme
 import org.json.JSONObject
 
@@ -30,34 +37,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GoJsonTheme {
-                val viewModel = ViewModel()
-                val apiLinkValue = remember {
-                    mutableStateOf(TextFieldValue())
-                }
-                val jsonValue = viewModel.jsonData.observeAsState().value.toString()
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    OutlinedTextField(value = apiLinkValue.value, onValueChange = { apiLinkValue.value=it } , modifier = Modifier.width(
-                        LocalConfiguration.current.screenWidthDp.dp-100.dp), maxLines = 1)
-                    Text(
-                        text = jsonValue
-                    )
-                    Spacer(modifier = Modifier.padding(50.dp))
-                    Button(onClick = {
-                        viewModel.fetchLink(apiLinkValue.value.text,this@MainActivity)
-                    }) {
-                        Text(text = "Click Me")
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = Screens.HomeScreen.route){
+                    composable(Screens.HomeScreen.route){
+                        HomeScreen(context = this@MainActivity,navController)
+                    }
+                    composable(Screens.JsonDataScreen.route + "/{viewModel}"){
+                        val viewModel:ViewModel = it.arguments?.get("viewModel") as ViewModel
+                        JsonDataScreen(viewModel = viewModel)
                     }
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //val queue = Volley.newRequestQueue(this@MainActivity)
 //val url = "https://api.coinpaprika.com/v1/coins/btc-bitcoin"

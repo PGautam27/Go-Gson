@@ -16,9 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.gojson.presentation.screens.Screens
 
 @Composable
-fun HomeScreen(context: ComponentActivity) {
+fun HomeScreen(context: ComponentActivity,navController: NavController) {
     val viewModel = ViewModel()
     val apiLinkValue = remember {
         mutableStateOf(TextFieldValue())
@@ -40,6 +42,7 @@ fun HomeScreen(context: ComponentActivity) {
         Spacer(modifier = Modifier.padding(50.dp))
         Button(onClick = {
             viewModel.fetchLink(apiLinkValue.value.text, context)
+            navController.navigate(Screens.JsonDataScreen.route + viewModel)
         }) {
             Text(text = "Click Me")
         }
