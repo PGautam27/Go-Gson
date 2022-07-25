@@ -42,7 +42,7 @@ fun HomeScreen(context: ComponentActivity,navController: NavController) {
         Spacer(modifier = Modifier.padding(50.dp))
         Button(onClick = {
             viewModel.fetchLink(apiLinkValue.value.text, context)
-            navController.navigate(Screens.JsonDataScreen.route + viewModel)
+            navController.navigate(Screens.JsonDataScreen.route + "$viewModel")
         }) {
             Text(text = "Click Me")
         }
