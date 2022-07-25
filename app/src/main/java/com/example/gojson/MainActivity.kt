@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GoJsonTheme {
-                val link = "https://random-data-api.com/api/blood/random_blood"
                 val viewModel = ViewModel()
                 val apiLinkValue = remember {
                     mutableStateOf(TextFieldValue())
