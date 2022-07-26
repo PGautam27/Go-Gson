@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.Request
+import com.android.volley.toolbox.JsonRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlin.coroutines.coroutineContext
 
 class ViewModel():ViewModel() {
 
@@ -23,7 +27,6 @@ class ViewModel():ViewModel() {
 
     private fun convertJsonData(context: ComponentActivity){
         val queue = Volley.newRequestQueue(context)
-
         val stringRequest = StringRequest(
             Request.Method.GET, link.value.toString(),
             { response ->
@@ -36,7 +39,6 @@ class ViewModel():ViewModel() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
         queue.add(stringRequest)
     }
 

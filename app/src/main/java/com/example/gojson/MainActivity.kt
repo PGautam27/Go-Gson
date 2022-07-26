@@ -37,21 +37,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GoJsonTheme {
+                val viewModel = ViewModel()
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screens.HomeScreen.route){
-                    composable(Screens.HomeScreen.route){
-                        HomeScreen(context = this@MainActivity,navController)
+                NavHost(
+                    navController = navController,
+                    startDestination = Screens.HomeScreen.route
+                ) {
+                    composable(Screens.HomeScreen.route) {
+                        HomeScreen(context = this@MainActivity, navController,viewModel)
                     }
-                    composable(Screens.JsonDataScreen.route + "/{viewModel}"){
-                        val viewModel:ViewModel = it.arguments?.get("viewModel") as ViewModel
+                    composable(Screens.JsonDataScreen.route) {
                         JsonDataScreen(viewModel = viewModel)
                     }
                 }
+
             }
         }
     }
 }
-
 
 
 
