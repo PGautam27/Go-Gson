@@ -26,6 +26,7 @@ fun JsonDataScreen(viewModel: ViewModel,context: ComponentActivity) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
+
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
